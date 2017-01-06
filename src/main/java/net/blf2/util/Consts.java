@@ -1,7 +1,5 @@
 package net.blf2.util;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -13,8 +11,9 @@ public class Consts {
     static{
         properties = new Properties();
         try{
-            InputStream in = new BufferedInputStream(new FileInputStream("/webconfig.properties"));
+            InputStream in = Object.class.getResourceAsStream("/webconfig.properties");
             properties.load(in);
+            in.close();
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -23,4 +22,6 @@ public class Consts {
     public static int THREADS_ALLOWED_TO_BLOCK_FOR_CONNECTION_MULTIPLIER = properties.getProperty("THREADS_ALLOWED_TO_BLOCK_FOR_CONNECTION_MULTIPLIER") != null ? Integer.parseInt(properties.getProperty("THREADS_ALLOWED_TO_BLOCK_FOR_CONNECTION_MULTIPLIER")) : 50;
     public static int CONNECT_TIMEOUT = properties.getProperty("CONNECT_TIMEOUT") != null ? Integer.parseInt(properties.getProperty("CONNECT_TIMEOUT")) : 60000;
     public static int MAX_WAIT_TIME = properties.getProperty("MAX_WAIT_TIME") != null ? Integer.parseInt(properties.getProperty("MAX_WAIT_TIME")) : 120000;
+    public static String MONGODB_HOST = properties.getProperty("MONGODB_HOST") != null ? properties.getProperty("MONGODB_HOST") : "127.0.0.1";
+    public static int MONGODB_PORT = properties.getProperty("MONGODB_PORT") != null ? Integer.parseInt(properties.getProperty("MONGODB_PORT")) : 27017;
 }
